@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Loan Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
+    />
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+    ></script>
+  </head>
+  <body>
+    <center>  <h1 class="title ">Vazcharickal Bankers</h1> </center>
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-three-quarters">
+            <div class="card">
+              <div class="card-content">
+                <form id="loan-form">
+                  <div class="level">
+                    <!-- Left side -->
+                    <div class="level-left is-marginless">
+                      <div class="level-item">
+                        <p class="number">1</p>
+                        Loan Amount
+                      </div>
+                    </div>
+
+                    <!-- Right side -->
+                    <div class="level-right">
+                      <div class="level-item">
+                        <div class="field">
+                          <div class="control ">
+                            <input class="input" id="amount" type="number" />
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="level">
+                    <!-- Left side -->
+                    <div class="level-left is-marginless">
+                      <div class="level-item">
+                        <p class="number">2</p>
+                        Interest Rate
+                      </div>
+                    </div>
+
+                    <!-- Right side -->
+                    <div class="level-right">
+                      <div class="level-item">
+                        <div class="field">
+                          <div class="control has-icons-right">
+                            <input class="input" id="interest" type="number" value="24" />
+                            <span class="icon is-small is-right">
+                              <i class="fa fa-percentage"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="level">
+                    <!-- Left side -->
+                    <div class="level-left is-marginless">
+                      <div class="level-item">
+                        <p class="number">3</p>
+                        Issue Date
+                      </div>
+                    </div>
+
+                    <!-- Right side -->
+                    <div class="level-right">
+                      <div class="level-item">
+                        <div class="field">
+                          <div class="control has-icons-left">
+                            <input class="input" id="issue" type="date" />
+                            <span class="icon is-small is-left">
+                              <i class="fa fa-calendar"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                    <!-- Left side -->
+                    <div class="level-left is-marginless">
+                      <div class="level-item">
+                        <p class="number">4</p>
+                        Return Date
+                      </div>
+                    </div>
+
+                    <!-- Right side -->
+                    <div class="level-right">
+                      <div class="level-item">
+                        <div class="field">
+                          <div class="control has-icons-left">
+                            <input class="input" id="current" type="date" />
+                            <span class="icon is-small is-left">
+                              <i class="fa fa-calendar"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="control">
+                    <button
+                      class="button is-large is-fullwidth is-primary is-outlined"
+                    >
+                      Calculate
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="section"> 
+      <h1 class="title ">Calculated Results</h1>
+<div class="columns is-multiline">
+  
+  <div class="column is-12-tablet is-6-desktop is-3-widescreen">
+    <div class="notification is-primary has-text">
+      <p id="monthlyPayment" class="title is-1">&#128197</p>
+      <p class="subtitle is-4">No of Days</p>
+    </div>
+  </div>
+
+    <div class="column is-12-tablet is-6-desktop is-3-widescreen">
+        <div class="notification is-info has-text">
+          <p id="totalInterest" class="title is-1">₹</p>
+          <p class="subtitle is-4">Total Interest</p>
+        </div>
+      </div>
+
+      <div class="column is-12-tablet is-6-desktop is-3-widescreen">
+        <div class="notification is-link has-text">
+          <p id="totalPayment" class="title is-1">₹</p>
+          <p class="subtitle is-4">Total Amount</p>
+        </div>
+      </div>
+
+</div>
+</section>
+
+
+
+  </body>
+
+<script type="text/javascript">
+      // Listen for submit
+
+document.getElementById("loan-form").addEventListener("submit", computeResults);
+
+function computeResults(e) {
+  // UI
+
+  var UIamount = parseFloat(document.getElementById("amount").value).toFixed(0);
+  var UIinterest = document.getElementById("interest").value;
+  var date1 = new Date(document.getElementById("issue").value);
+  var date2 = new Date(document.getElementById("current").value);
+  var diffTime = Math.abs(date2 - date1);
+  var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  var interest = parseFloat((diffDays * UIamount * UIinterest )/36000).toFixed(0);
+  var totalAmount = parseFloat(UIamount)+parseFloat(interest);
+
+  console.log(diffDays + " days");
+
+  document.getElementById("monthlyPayment").innerHTML = diffDays;
+  document.getElementById("totalInterest").innerHTML = "₹" + interest;
+  document.getElementById("totalPayment").innerHTML = "₹" + totalAmount;
+  // Calculate
+  e.preventDefault();
+}
+
+</script>
+</html>
